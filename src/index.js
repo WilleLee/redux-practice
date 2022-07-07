@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createStore } from "redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const plus = document.querySelector(".plus");
+const minus = document.querySelector(".minus");
+const counter = document.querySelector(".counter");
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+counter.innerText = 0;
+
+const PLUS = "PLUS";
+const MINUS = "MINUS";
+const countModifier = (count = 0, action) => {
+  const { type } = action;
+  switch (type) {
+    case PLUS:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count;
+  }
+
+  /*
+  if (type === "PLUS") {
+    return count + 1;
+  } else if (type === "MINUS") {
+    return count - 1;
+  } else {
+    return count;
+  }
+  */
+};
+const countStore = createStore(countModifier);
+const onChange = () => {
+  counter.innerText = countStore.getState();
+};
+countStore.subscribe(onChange);
+
+plus.addEventListener("click", () => countStore.dispatch({ type: PLUS }));
+minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }));
