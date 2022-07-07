@@ -51,22 +51,34 @@ const todosModifier = (todos = [], action) => {
   const { type, text, id } = action;
   switch (type) {
     case ADD_TODO:
-      return [...todos, { text, id }];
+      return [{ text, id }, ...todos];
     case DELETE_TODO:
-      return [];
+      return todos.filter((todo) => todo.id !== id);
     default:
       return todos;
   }
 };
 const todosStore = createStore(todosModifier);
 
+const addTodo = (text) => {
+  todosStore.dispatch({ type: ADD_TODO, text, id: Date.now() });
+};
+const deleteTodo = (e) => {
+  const id = parseInt(e.target.parentNode.id);
+  todosStore.dispatch({ type: DELETE_TODO, id });
+};
+
 const paintTodos = () => {
   const todos = todosStore.getState();
   todosList.innerHTML = "";
   for (const todo of todos) {
     const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.addEventListener("click", deleteTodo);
     li.id = todo.id;
     li.innerText = todo.text;
+    btn.innerText = "Delete";
+    li.appendChild(btn);
     todosList.appendChild(li);
   }
 };
@@ -75,7 +87,7 @@ todosStore.subscribe(paintTodos);
 const onSubmit = (e) => {
   e.preventDefault();
   const text = input.value;
-  todosStore.dispatch({ type: ADD_TODO, text, id: Date.now() });
+  addTodo(text);
   input.value = "";
 };
 todoForm.addEventListener("submit", onSubmit);
