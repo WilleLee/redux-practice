@@ -10,9 +10,24 @@
     <title>redux practice</title>
   </head>
   <body>
-    <button class="plus">plus</button>
-    <span class="counter"></span>
-    <button class="minus">minus</button>
+    <section class="counter-container">
+      <button class="plus">plus</button>
+      <span class="counter"></span>
+      <button class="minus">minus</button>
+    </section>
+
+    <form class="todo-form">
+      <input
+        type="text"
+        placeholder="What to do?(4 to 10)"
+        minlength="4"
+        maxlength="15"
+      />
+      <button type="submit">add</button>
+    </form>
+    <section>
+      <ul class="todos-list"></ul>
+    </section>
     <!--
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
