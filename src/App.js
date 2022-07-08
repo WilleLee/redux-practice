@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 //routes
 import Home from "./routes/Home";
 import Detail from "./routes/Detail";
+import Welcome from "./routes/Welcome";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         REDUX PRACTICE
       </h1>
       <Routes>
+        <Route path="/redux-practice" element={<Welcome />} />
         <Route path="/" element={<Home />} />
         <Route path="/:id" element={<Detail />} />
       </Routes>
