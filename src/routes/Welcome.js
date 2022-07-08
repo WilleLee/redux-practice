@@ -11,14 +11,7 @@ export default function Welcome() {
   return (
     <WelcomeBox>
       <h2>
-        <Link
-          style={{
-            textDecoration: "none",
-          }}
-          to="/"
-        >
-          Go Browse &rarr;
-        </Link>
+        <Link to="/">Go Browse &rarr;</Link>
       </h2>
     </WelcomeBox>
   );
