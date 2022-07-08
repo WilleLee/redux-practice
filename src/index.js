@@ -1,93 +1,26 @@
-import { createStore } from "redux";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+//css
 import "./styles/main.css";
+// routes
+import App from "./App";
+import { Provider } from "react-redux";
+import todosStore from "./todosStore";
 
-//createStore introduction
-const plus = document.querySelector(".plus");
-const minus = document.querySelector(".minus");
-const counter = document.querySelector(".counter");
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={todosStore}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
-counter.innerText = 0;
-
-const PLUS = "PLUS";
-const MINUS = "MINUS";
-const countModifier = (count = 0, action) => {
-  const { type } = action;
-  switch (type) {
-    case PLUS:
-      return count + 1;
-    case MINUS:
-      return count - 1;
-    default:
-      return count;
-  }
-
-  /*
-  if (type === "PLUS") {
-    return count + 1;
-  } else if (type === "MINUS") {
-    return count - 1;
-  } else {
-    return count;
-  }
-  */
-};
-const countStore = createStore(countModifier);
-const onChange = () => {
-  counter.innerText = countStore.getState();
-};
-countStore.subscribe(onChange);
-
-plus.addEventListener("click", () => countStore.dispatch({ type: PLUS }));
-minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }));
-
-//todos
-const todoForm = document.querySelector(".todo-form");
-const input = document.querySelector(".todo-form input");
-const todosList = document.querySelector(".todos-list");
-
-const ADD_TODO = "ADD_TODO";
-const DELETE_TODO = "DELETE_TODO";
-const todosModifier = (todos = [], action) => {
-  const { type, text, id } = action;
-  switch (type) {
-    case ADD_TODO:
-      return [{ text, id }, ...todos];
-    case DELETE_TODO:
-      return todos.filter((todo) => todo.id !== id);
-    default:
-      return todos;
-  }
-};
-const todosStore = createStore(todosModifier);
-
-const addTodo = (text) => {
-  todosStore.dispatch({ type: ADD_TODO, text, id: Date.now() });
-};
-const deleteTodo = (e) => {
-  const id = parseInt(e.target.parentNode.id);
-  todosStore.dispatch({ type: DELETE_TODO, id });
-};
-
-const paintTodos = () => {
-  const todos = todosStore.getState();
-  todosList.innerHTML = "";
-  for (const todo of todos) {
-    const li = document.createElement("li");
-    const btn = document.createElement("button");
-    btn.addEventListener("click", deleteTodo);
-    li.id = todo.id;
-    li.innerText = todo.text;
-    btn.innerText = "Delete";
-    li.appendChild(btn);
-    todosList.appendChild(li);
-  }
-};
-todosStore.subscribe(paintTodos);
-
-const onSubmit = (e) => {
-  e.preventDefault();
-  const text = input.value;
-  addTodo(text);
-  input.value = "";
-};
-todoForm.addEventListener("submit", onSubmit);
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
