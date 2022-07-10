@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import Detail from "./routes/Detail";
 import Welcome from "./routes/Welcome";
+import NotFound from "./routes/NotFound";
 
 export default function App() {
   return (
@@ -19,8 +20,9 @@ export default function App() {
       </h1>
       <Routes>
         <Route path="/redux-practice" element={<Welcome />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/:id" element={<Detail />} />
+        <Route path="/redux-practice/home" element={<Home />} />
+        <Route path="/redux-practice/:id" element={<Detail />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );

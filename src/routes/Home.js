@@ -7,16 +7,10 @@ import { actionCreators } from "../todosStore";
 import Todo from "../components/Todo";
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 10px;
   margin-bottom: 20px;
 `;
 const Ul = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 5px;
 `;
 
@@ -48,12 +42,12 @@ function Home({ todos, addTodo }) {
       >
         To Do
       </h2>
-      <Form onSubmit={onSubmit}>
+      <Form className="column-container-center" onSubmit={onSubmit}>
         <input
           placeholder="what to do?"
           type="text"
-          minLength={4}
-          maxLength={10}
+          minLength={2}
+          maxLength={15}
           required
           onChange={onChange}
           style={{
@@ -77,7 +71,7 @@ function Home({ todos, addTodo }) {
           Submit
         </button>
       </Form>
-      <Ul>
+      <Ul className="column-container-center">
         {todos.map((todo) => (
           <Todo key={todo.id} text={todo.text} id={todo.id} />
         ))}

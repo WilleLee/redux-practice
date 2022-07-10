@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { actionCreators } from "../todosStore";
 
-function Todo({ text, deleteTodo }) {
+function Todo({ text, deleteTodo, id }) {
   return (
     <li
       style={{
@@ -10,7 +11,7 @@ function Todo({ text, deleteTodo }) {
         justifyContent: "space-between",
       }}
     >
-      <span>{text}</span>
+      <Link to={`/redux-practice/${id}`}>{text}</Link>
       <button onClick={deleteTodo}>delete</button>
     </li>
   );

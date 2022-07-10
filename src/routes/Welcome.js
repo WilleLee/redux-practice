@@ -11,7 +11,7 @@ export default function Welcome() {
   return (
     <WelcomeBox>
       <h2>
-        <Link to="/">Go Browse &rarr;</Link>
+        <Link to="/redux-practice/home">Go Browse &rarr;</Link>
       </h2>
     </WelcomeBox>
   );
