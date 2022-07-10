@@ -26,10 +26,14 @@ async function setCurrentStore() {
 }
 */
 
-const reducer = (
-  todos = JSON.parse(localStorage.getItem("storage")),
-  action
-) => {
+function setCurrentStore() {
+  return localStorage.getItem("storage")
+    ? JSON.parse(localStorage.getItem("storage"))
+    : [];
+}
+const currentTodos = setCurrentStore();
+
+const reducer = (todos = currentTodos, action) => {
   const { type, text, id } = action;
   switch (type) {
     case ADD: {
